@@ -91,16 +91,16 @@ npm install -g yarn
 
 ### 导入aar包和运行必需的文件
 
-将示例工程内的aar文件和so文件（`/yzmeeting-example-android/app/libs/`）拷入到主工程的libs目录下。
+将示例工程内的aar文件和so文件（`/redwhalertc-example-android/app/libs/`）拷入到主工程的libs目录下。
 
 ```
 ├── libs
-│   ├── YunzhouMeeting.aar
+│   ├── RedwhaleModule.aar
 │   └── arm64-v8a
 │       └── libjsc.so
 ```
 
-从[yzmeeting-sdk-android](https://github.com/yunzhoucomm/yzmeeting-sdk-android)获取最新的package.json, react-native.config.js文件并拷贝到主工程的根目录下。（和`settings.gradle`平级）
+从[redwhalertc-sdk-android](https://github.com/redwhalertc/redwhalertc-sdk-android)获取最新的package.json, react-native.config.js文件并拷贝到主工程的根目录下。（和`settings.gradle`平级）
 
 
 ### 添加依赖
@@ -112,11 +112,11 @@ apply from: file("node_modules/@react-native-community/cli-platform-android/nati
 ```
 
 
-参考示例程序里/yzmeeting-example-android/app的build.gradle，添加aar依赖
+参考示例程序里/redwhalertc-example-android/app的build.gradle，添加aar依赖
 
 ```java
 dependencies {
-    implementation(name: 'YunzhouMeeting', ext: 'aar')
+    implementation(name: 'RedwhaleModule', ext: 'aar')
 }
 ```
 
@@ -157,11 +157,11 @@ packagingOptions {
 
 仅需调用以下方法完成初始化
 ```java
-YunzhouMeetingAPI.getInstance().init(this);
+RedwhaleMeetingAPI.getInstance().init(this);
 ```
 ### 启动会议
 ```java
-YunzhouMeetingAPI.getInstance().start(this, options);
+RedwhaleMeetingAPI.getInstance().start(this, options);
 ```
 | 参数 | 含义 |
 | :--- | ---- |
@@ -214,7 +214,7 @@ MeetingOptions options = new MeetingOptions.Builder()
     	.mode(Constant.MEETING_MODE_SINGLE)
     	.participant(userList)
     	.build();
-YunzhouMeetingAPI.getInstance().start(this, options);
+RedwhaleMeetingAPI.getInstance().start(this, options);
 ```
 
 MeetingOptions参数说明：
@@ -251,7 +251,7 @@ MeetingOptions options = new MeetingOptions.Builder()
         .meetingData(meetingData)
         .userInfo(new User("", "", ""))
         .build();
-YunzhouMeetingAPI.getInstance().start(this, options);
+RedwhaleMeetingAPI.getInstance().start(this, options);
 ```
 
 MeetingOptions参数说明：
