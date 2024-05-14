@@ -1,0 +1,30 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.redwhale.redwhalemeeting">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.yunzhoumeeting">
+
+        <activity
+            android:name="com.redwhale.redwhalemeeting.LoadingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:resizeableActivity="false"
+            android:maxAspectRatio="2.4">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.redwhale.redwhalemeeting.MainActivity"
+            android:exported="true">
+        </activity>
+    </application>
+
+</manifest>

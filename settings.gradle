@@ -1,0 +1,57 @@
+rootProject.name = "RedwhaleMeeting"
+include ':app'
+
+if(USE_DEMO.toBoolean()){
+    include ':react-native-webrtc'
+    project(':react-native-webrtc').projectDir = new File('node_modules/@yunzhoukit/react-native-webrtc/android')
+
+    include ':react-native-orientation-locker'
+    project(':react-native-orientation-locker').projectDir = new File('node_modules/@yunzhoukit/react-native-orientation-locker/android')
+
+    include ':react-native-audio-toolkit'
+    project(':react-native-audio-toolkit').projectDir = new File('node_modules/@yunzhoukit/react-native-audio-toolkit/android')
+
+    include ':yunzhou-react-native'
+    project(':yunzhou-react-native').projectDir = new File('node_modules/@yunzhoukit/yunzhou-react-native/android')
+
+    include ':react-native-utils'
+    project(':react-native-utils').projectDir = new File('node_modules/@yunzhoukit/react-native-utils/android')
+
+    include ':rn-foreground-service'
+    project(':rn-foreground-service').projectDir = new File('node_modules/@yunzhoukit/rn-foreground-service/android')
+
+    include ':react-native-svg'
+    project(':react-native-svg').projectDir = new File('node_modules/react-native-svg/android')
+
+    include ':react-native-community_clipboard'
+    project(':react-native-community_clipboard').projectDir = new File('node_modules/@react-native-community/clipboard/android')
+
+    include ':react-native-pager-view'
+    project(':react-native-pager-view').projectDir = new File('node_modules/react-native-pager-view/android')
+
+    include ':sayem314_react-native-keep-awake'
+    project(':sayem314_react-native-keep-awake').projectDir = new File('node_modules/sayem314_react-native-keep-awake/android')
+
+    include ':react-native-receive-sharing-intent'
+    project(':react-native-receive-sharing-intent').projectDir = new File('node_modules/react-native-receive-sharing-intent/android')
+
+    include ':react-native-gesture-handler'
+    project(':react-native-gesture-handler').projectDir = new File('node_modules/react-native-gesture-handler/android')
+
+    include ':react-native-safe-area-context'
+    project(':react-native-safe-area-context').projectDir = new File('node_modules/react-native-safe-area-context/android')
+
+    include ':react-native-background-timer'
+    project(':react-native-background-timer').projectDir = new File('node_modules/react-native-background-timer/android')
+
+    include ':react-native-screens'
+    project(':react-native-screens').projectDir = new File('node_modules/react-native-screens/android')
+
+    include ':react-native-async-storage_async-storage'
+    project(':react-native-async-storage_async-storage').projectDir = new File('node_modules/@react-native-async-storage/async-storage/android')
+} else {
+    include ':RedwhaleModule'
+    project(':RedwhaleModule').projectDir = new File('../../SDK/RedwhaleModule')
+}
+
+apply from: file("node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)

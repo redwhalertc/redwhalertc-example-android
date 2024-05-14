@@ -1,0 +1,127 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.redwhale.redwhalemeeting"
+        minSdkVersion 23
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "arm64-v8a"
+        }
+    }
+
+    repositories {
+
+        flatDir {
+            dirs 'libs' //this way we can find the .aar file in libs folder
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/yunzhoukit_yunzhou-react-native_debug.kotlin_module'
+        exclude 'META-INF/yunzhoukit_yunzhou-react-native_release.kotlin_module'
+        exclude 'META-INF/audioswitch_release.kotlin_module'
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    if(USE_DEMO.toBoolean()){
+        api fileTree(include: ['*.jar'], dir: 'libs')
+        implementation(name: 'RedwhaleModule', ext: 'aar')
+        implementation 'com.facebook.react:react-native:0.67.3'
+        implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+        implementation project(':react-native-orientation-locker')
+        implementation project(':react-native-audio-toolkit')
+        implementation project(':react-native-webrtc')
+        implementation project(':yunzhou-react-native')
+        implementation project(':react-native-utils')
+        implementation project(':rn-foreground-service')
+
+        implementation project(':react-native-svg')
+        implementation project(':react-native-pager-view')
+        implementation project(':react-native-community_clipboard')
+        implementation project(':sayem314_react-native-keep-awake')
+        implementation project(':react-native-gesture-handler')
+        implementation project(':react-native-receive-sharing-intent')
+        implementation project(':react-native-safe-area-context')
+        implementation project(':react-native-background-timer')
+        implementation project(':react-native-screens')
+        implementation project(':react-native-async-storage_async-storage')
+
+        debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
+            exclude group:'com.facebook.fbjni'
+        }
+        debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
+            exclude group:'com.facebook.flipper'
+            exclude group:'com.squareup.okhttp3', module:'okhttp'
+        }
+        debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
+            exclude group:'com.facebook.flipper'
+        }
+
+        implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        implementation 'org.greenrobot:eventbus:3.1.1'
+
+        implementation 'com.elvishew:xlog:1.10.1'
+        implementation 'com.alibaba:fastjson:1.2.70'
+    } else {
+        implementation project(':RedwhaleModule')
+    }
+}
+
+task prepareBuild {
+    doFirst {
+        setUpPlaceholders()
+    }
+}
+
+def setUpPlaceholders(){
+    println "[setUpPlaceholders]"
+    File propsFile = new File(rootDir.absolutePath+"/gradle.properties");
+    def props = new java.util.Properties();
+    FileInputStream fInt = new FileInputStream(propsFile);
+    props.load(fInt);
+
+    if(System.getenv('USE_DEMO') != null){
+        props.setProperty("USE_DEMO",System.getenv('USE_DEMO').toString());
+    }
+    FileOutputStream fOut = new FileOutputStream(rootDir.absolutePath+"/gradle.properties");
+    props.store(fOut,null)
+    fOut.close()
+    fInt.close()
+    println "[setUpPlaceholders]finish"
+}
